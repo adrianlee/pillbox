@@ -107,9 +107,9 @@ var smtpTransport = nodemailer.createTransport("SMTP", {
 function sendMail() {
   var mailOptions = {
     from: "Pillbox",
-    to: "jun.irok@gmail.com",
-    subject: "Message from Joshua",
-    html: "<b>I wish you pass with flying colors!</b>"
+    to: "adrian.lee@mail.mcgill.ca",
+    subject: "John Doe's EasyMed Pillbox Summary",
+    html: "<h3>EasyMed Summary for John Doe:</h3><br/>Dispensed: Despramine (Prescription-ID: 809QyCivcd) on " + new Date()
   };
 
   // send mail with defined transport object
@@ -121,6 +121,29 @@ function sendMail() {
     }
   });
 }
+
+////////////////////////////////////////////////
+// Twilio
+////////////////////////////////////////////////
+var request = require("request");
+
+function sendSMS() {
+  var options = {
+    method: "POST",
+    url: "https://AC7114e975799243939dd159cc4ccab851:caede88e1eef8dac45a5fc0c191baf1d@api.twilio.com/2010-04-01/Accounts/AC7114e975799243939dd159cc4ccab851/SMS/Messages.json",
+    form: {
+      From: "+15148007107",
+      To: "+15149659922",
+      Body: "John Doe just dispensed: Despramine (Prescription-ID: 809QyCivcd)"
+    }
+  }
+
+  request(options, function (err, r, b) {
+    if (err) console.log(err);
+    console.log(b);
+  });
+}
+
 
 
 //////////////////////////////////////////////
@@ -156,15 +179,18 @@ board.on("ready", function() {
 
   function beep(num) {
     this.num = num;
-    compulsive.repeat(num, 5000, function () {
-      piezo.tone(1025, 500);
+    compulsive.repeat(num, 2000, function () {
+      piezo.tone(40, 700);
       // ring_increase();
     });
   }
 
-
   ring_increase();
-  // beep(0);
+
+
+  compulsive.wait(3000, function () {
+    beep(2);
+  })
 
   bumper.on("hold", function() {
     console.log("button press");
@@ -173,6 +199,7 @@ board.on("ready", function() {
       piezo.tone(30, 500);
       moving = true;
       led.off();
+      sendMail();
 
       compulsive.repeat(18, 10, function(t) {
         angle++;
@@ -203,6 +230,7 @@ board.on("ready", function() {
       piezo.tone(30, 500);
       moving = true;
       led.off();
+      sendSMS();
 
       compulsive.repeat(18, 10, function(t) {
         angle++;
@@ -220,7 +248,7 @@ board.on("ready", function() {
       });
     }
 
-    compulsive.wait(3000, function () {
+    compulsive.wait(15000, function () {
       led.on();
       moving = false;
     })
