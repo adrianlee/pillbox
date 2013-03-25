@@ -2,31 +2,50 @@
 
 <html lang="en">
   <head>
-    <title>Hello World</title>
-    <!-- Bootstrap -->
-    <!-- <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/css/bootstrap.min.css" rel="stylesheet"> -->
-    <!-- <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/css/bootstrap-combined.min.css" rel="stylesheet"> -->
+    <title>easyMeds</title>
+    <!-- <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.min.css" rel="stylesheet"> -->
+    <link href="/bootstrap.css" rel="stylesheet">
+    <style>
+    body {
+      padding-top: 60px;  60px to make the container go all the way to the bottom of the topbar
+    }
+    </style>
+    <link href="/bootstrap-responsive.css" rel="stylesheet">
+    <!-- <link href="/flat/css/flat-ui.css" rel="stylesheet"> -->
 
-    <!-- Foundation -->
-    <link href="//cdnjs.cloudflare.com/ajax/libs/foundation/3.2.2/stylesheets/foundation.min.css" rel="stylesheet">
+    <link rel='stylesheet' href='/style.css'>
 
-    <link rel='stylesheet' href='/css/style.css'>
 
-    {{{block "stylesheets"}}}
   </head>
 
   <body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="brand" href="#">easyMeds</a>
+          <div class="nav-collapse collapse">
+            <ul class="nav">
+              <li class="active"><a href="#">Home</a></li>
+              <li><a href="#about">About</a></li>
+              <li><a href="#contact">Contact</a></li>
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+
+
+    <section class="container">
     {{{body}}}
+    </section>
 
-    <!-- jQuery -->
-    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script> -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/js/bootstrap.min.js"></script>
 
-    <!-- Boostrap -->
-    <!-- <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/js/bootstrap.min.js"></script> -->
-
-    <!-- Foundation -->
-    <script src="//cdnjs.cloudflare.com/ajax/libs/foundation/3.2.2/javascripts/foundation.min.js"></script>
-
-    {{{block "scripts"}}}
   </body>
 </html>
