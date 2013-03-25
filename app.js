@@ -135,6 +135,7 @@ board.on("ready", function() {
 
   var led = new five.Led(13);
   var bumper = new five.Button(7);
+  var bumper_red = new five.Button(8);
   var servo = new five.Servo({
     pin: 10
   });
@@ -168,6 +169,36 @@ board.on("ready", function() {
   bumper.on("hold", function() {
     console.log("button press");
     if (!moving) {
+      console.log('Dispense BLUE pill @ ' + new Date());
+      piezo.tone(30, 500);
+      moving = true;
+      led.off();
+
+      compulsive.repeat(18, 10, function(t) {
+        angle++;
+        console.log(angle);
+        servo.move(angle);
+        if (!t.repeat) {
+          compulsive.repeat(18, 10, function(t) {
+            angle--;
+            console.log(angle);
+            servo.move(angle);
+            if (!t.repeat) {
+            }
+          });
+        }
+      });
+    }
+
+    compulsive.wait(3000, function () {
+      led.on();
+      moving = false;
+    })
+  });
+
+  bumper_red.on("hold", function() {
+    console.log("button press");
+    if (!moving) {
       console.log('Dispense RED pill @ ' + new Date());
       piezo.tone(30, 500);
       moving = true;
@@ -193,10 +224,13 @@ board.on("ready", function() {
       led.on();
       moving = false;
     })
-
   });
 
   bumper.on("release", function() {
-    console.log('Button Released!');
+    console.log('BLUE Button Released!');
+  });
+
+  bumper_red.on("release", function() {
+    console.log('RED Button Released!');
   });
 });
